@@ -1,0 +1,7 @@
+/db.sqlite3
+/.coverage
+/venv/*
+**/__pycache__/*
+.idea/*
+/frontend/node_modules/*
+TFTTeamPlanner/settings.py
