@@ -1,42 +1,48 @@
-import React, { Component } from 'react'
-import { render } from 'react-dom'
+import React, { Component } from "react"
+import { render } from "react-dom"
+import styled from "@emotion/styled"
+
+const GlobalContainer = styled.div`
+  background-color: #222222;
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+`
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: [],
-            loaded: false,
-            placeholder: "Loading"
+  constructor(props) {
+    super(props)
+    this.state = {
+      data: [],
+      loaded: false,
+      placeholder: "Loading",
+    }
+  }
+
+  componentDidMount() {
+    fetch("api/champ")
+      .then((response) => {
+        if (response.status > 400) {
+          return this.setState({ placeholder: "Something went wrong!" })
         }
-    }
+        return response.json()
+      })
+      .then((data) => {
+        this.setState({ data, loaded: true })
+      })
+  }
 
-    componentDidMount() {
-        fetch("api/champ")
-            .then((response) => {
-                if (response.status > 400) {
-                    return this.setState({ placeholder: "Something went wrong!" })
-                }
-                return response.json()
-            })
-            .then((data) => {
-                this.setState({ data, loaded: true })
-            })
-    }
-
-    render() {
-        return (
-            <ul>
-                {this.state.data.map((champ) => {
-                    return (
-                        <li key={champ.id}>
-                            {champ.name}
-                        </li>
-                    )
-                })}
-            </ul>
-        )
-    }
+  render() {
+    return (
+      <GlobalContainer>
+        <ul>
+          {this.state.data.map((champ) => {
+            return <li key={champ.id}>{champ.name}</li>
+          })}
+        </ul>
+      </GlobalContainer>
+    )
+  }
 }
 
 export default App

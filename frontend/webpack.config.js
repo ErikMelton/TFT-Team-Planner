@@ -1,4 +1,11 @@
+const path = require("path")
+
 module.exports = {
+    entry: "./src/index.js",
+    output: {
+        path: path.join(__dirname, "/static/frontend"),
+        filename: "main.js"
+    },
     module: {
         rules: [
             {
@@ -7,6 +14,10 @@ module.exports = {
                 use: {
                     loader: "babel-loader"
                 }
+            },
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader"]
             }
         ]
     }
