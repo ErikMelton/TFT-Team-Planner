@@ -5,3 +5,4 @@
 .idea/*
 /frontend/node_modules/*
 TFTTeamPlanner/settings.py
+frontend/static/frontend/main.js
